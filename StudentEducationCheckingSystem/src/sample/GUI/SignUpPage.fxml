@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="200.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sample.GUI.SignUpPageController">
+  <children>
+    <Button id="loginbutton" fx:id="submitbutton" layoutX="320.0" layoutY="211.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="128.0" text="Submit" />
+    <TextField fx:id="loginfield" layoutX="238.0" layoutY="117.0" prefHeight="25.0" prefWidth="210.0" promptText="Login" text="" />
+    <PasswordField fx:id="passwordfield" layoutX="238.0" layoutY="167.0" prefHeight="25.0" prefWidth="210.0" promptText="Password" />
+    <Label fx:id="welcomelabel" layoutX="150.0" layoutY="34.0" prefHeight="42.0" prefWidth="176.0" text="Sign up">
+      <font>
+        <Font size="30.0" />
+      </font>
+    </Label>
+    <TextField id="loginfield" fx:id="surnamefield" layoutX="14.0" layoutY="167.0" prefHeight="25.0" prefWidth="210.0" promptText="Surname" text="" />
+    <TextField id="loginfield" fx:id="namefield" layoutX="14.0" layoutY="117.0" prefHeight="25.0" prefWidth="210.0" promptText="Name" text="" />
+    <RadioButton fx:id="kuratorbutton" layoutX="31.0" layoutY="219.0" mnemonicParsing="false" text="Kurator" />
+    <RadioButton fx:id="secretarybutton" layoutX="119.0" layoutY="219.0" mnemonicParsing="false" text="Secretary">
+      <toggleGroup>
+        <ToggleGroup fx:id="user" />
+      </toggleGroup>
+    </RadioButton>
+  </children>
+</AnchorPane>

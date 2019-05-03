@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sample.GUI.AddStudentPageController">
+  <children>
+    <Label fx:id="welcomelabel" layoutX="14.0" layoutY="14.0" prefHeight="42.0" prefWidth="379.0" text="">
+      <font>
+        <Font size="18.0" />
+      </font>
+    </Label>
+    <Label layoutX="66.0" layoutY="53.0" text="Name">
+      <font>
+        <Font size="12.0" fx:id="x1" />
+      </font>
+    </Label>
+    <Button id="studentbutton" fx:id="addbutton" layoutX="190.0" layoutY="205.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="126.0" text="Add" />
+    <Label font="$x1" layoutX="66.0" layoutY="83.0" text="Surname" />
+    <Label font="$x1" layoutX="66.0" layoutY="116.0" text="Group" />
+    <Label font="$x1" layoutX="66.0" layoutY="176.0" text="Address" />
+    <Label font="$x1" layoutX="66.0" layoutY="148.0" text="Course" />
+    <Label font="$x1" layoutX="66.0" layoutY="208.0" text="Age" />
+    <TextField fx:id="namefield" layoutX="116.0" layoutY="50.0" prefWidth="200.0" />
+    <TextField fx:id="surnamrfield" layoutX="116.0" layoutY="80.0" prefWidth="200.0" />
+    <TextField fx:id="groupfield" layoutX="116.0" layoutY="113.0" prefWidth="200.0" />
+    <TextField fx:id="coursefield" layoutX="116.0" layoutY="145.0" prefWidth="200.0" />
+    <TextField fx:id="addressfield" layoutX="116.0" layoutY="173.0" prefWidth="200.0" />
+    <TextField fx:id="agefield" layoutX="116.0" layoutY="205.0" prefWidth="63.0" />
+  </children>
+</AnchorPane>
