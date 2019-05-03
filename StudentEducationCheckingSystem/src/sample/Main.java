@@ -21,8 +21,9 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        Curriculum cur = new Curriculum();
-        System.out.println(cur);
+
+        DataBaseHandler dbH = new DataBaseHandler();
+        dbH.createGroupTable("AS-181");
         launch(args);
     }
 }

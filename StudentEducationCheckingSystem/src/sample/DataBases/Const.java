@@ -21,6 +21,7 @@ public class Const {
             OOP = "oop",
             CUR_TABLE = "curriculum",
             CUR__ID = "id",
-            CUR_GROUP = "grp";
+            CUR_GROUP = "grp",
+    GROUP_NAME = "name";
 
 }

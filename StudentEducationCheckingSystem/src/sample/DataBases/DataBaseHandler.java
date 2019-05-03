@@ -4,8 +4,16 @@ import sample.Persons.Kurator;
 import sample.Persons.Secretary;
 import sample.Persons.Student;
 import sample.Persons.User;
+import sample.Statements.Curriculum;
+import sample.Statements.Statement;
 
-import java.sql.*;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class DataBaseHandler extends Configs{
     Connection dbConnection;
@@ -163,8 +171,6 @@ public class DataBaseHandler extends Configs{
 
         try {
             PreparedStatement prSt = getDbConnection().prepareStatement(select);
-
-
             resSet = prSt.executeQuery();
 
         } catch (SQLException e) {
@@ -183,7 +189,6 @@ public class DataBaseHandler extends Configs{
         try {
             PreparedStatement prSt = getDbConnection().prepareStatement(select);
 
-
             resSet = prSt.executeQuery();
 
         } catch (SQLException e) {
@@ -194,19 +199,56 @@ public class DataBaseHandler extends Configs{
 
         return resSet;
     }
-    /*public String welcome(ResultSet resultSet){
-        try {
 
-            String ret = "Nobody";
-            while(resultSet.next()) {
-                ret = "Hello, " + resultSet.getString(Const.USERS_NAME);
-            }
-            return ret;
+    public void createGroupTable(String gr){
+
+        String group = gr.replaceAll("-", "");
+        String create = "CREATE TABLE IF NOT EXISTS " + group + " (id INT(5) NOT NULL AUTO_INCREMENT," + Const.GROUP_NAME + " VARCHAR(50) NOT NULL";
+        ArrayList<String> subjects = new Curriculum().getSubjectsForGroup(gr);
+        for(String subject: subjects)
+            create += ", " + subject + " INT(5)";
+        create += ", PRIMARY KEY (`id`))";
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(create);
+            prSt.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
-        return "error";
+        String insert = "INSERT INTO " + group + "(" + Const.GROUP_NAME + ") VALUES (?)";
+        ArrayList<String> stNames = new Statement().getListOfStudentsByGroup(gr);
+        for(String name: stNames){
+            PreparedStatement prSt = null;
+            try {
+                if(!isStudentInGrouptable(getDbConnection(), group, name)) {
+                    prSt = getDbConnection().prepareStatement(insert);
+                    prSt.setString(1, name);
+                    prSt.executeUpdate();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
 
-    }*/
+        }
+
+    }
+
+    public boolean isStudentInGrouptable(Connection con, String tableName, String name){
+        try {
+            PreparedStatement prSt = con.prepareStatement("SELECT * FROM " + tableName);
+            ResultSet resSet = prSt.executeQuery();
+            while(resSet.next()){
+                if(resSet.getString(Const.GROUP_NAME).equals(name))
+                    return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

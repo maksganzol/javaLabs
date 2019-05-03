@@ -104,4 +104,16 @@ public class Curriculum {
     public void addNewGroup(String group){
         dbHandler.addGroup(group);
     }
+
+    public ArrayList<String> getSubjectsForGroup(String group){
+        ArrayList<String> subjectsList = new ArrayList<>();
+        for(Subject s: subjects)
+            for(String gr: s.groups)
+                if(gr.equals(group)) {
+                    subjectsList.add(s.name);
+                    break;
+                }
+
+        return subjectsList;
+    }
 }
