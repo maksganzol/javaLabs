@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import sample.Persons.Secretary;
 import sample.Persons.Student;
+import sample.Statements.Curriculum;
 
 
 public class AddStudentPageController {
@@ -51,9 +52,11 @@ public class AddStudentPageController {
 
     public void initData(Secretary sec){
         addbutton.setOnAction((event->{
-            sec.addStudent(new Student(namefield.getText(), surnamrfield.getText(), groupfield.getText(),
-                    coursefield.getText(), addressfield.getText(), Integer.parseInt(agefield.getText())));
-            addbutton.getScene().getWindow().hide();
+            if(new Curriculum().getGroupList().contains(groupfield.getText())) {
+                sec.addStudent(new Student(namefield.getText(), surnamrfield.getText(), groupfield.getText(),
+                        coursefield.getText(), addressfield.getText(), Integer.parseInt(agefield.getText())));
+                addbutton.getScene().getWindow().hide();
+            }
         }));
 
     }

@@ -204,7 +204,7 @@ public class DataBaseHandler extends Configs{
 
         String group = gr.replaceAll("-", "");
         String create = "CREATE TABLE IF NOT EXISTS " + group + " (id INT(5) NOT NULL AUTO_INCREMENT," + Const.GROUP_NAME + " VARCHAR(50) NOT NULL";
-        ArrayList<String> subjects = new Curriculum().getSubjectsForGroup(gr);
+        ArrayList<String> subjects = Curriculum.getSubjectsForGroup(gr);
         for(String subject: subjects)
             create += ", " + subject + " INT(5)";
         create += ", PRIMARY KEY (`id`))";

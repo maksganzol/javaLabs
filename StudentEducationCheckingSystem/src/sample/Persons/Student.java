@@ -10,7 +10,6 @@ public class Student{
     private String firstName, lastName, group, course, address;
     private int age;
     private SubjectsCard subjectCard;
-    //private HashMap<String, Integer[]> subjectsList;
     public Student(String firstName, String lastName, String group, String course, String address, int age) {
         this.firstName = firstName;
         this.lastName = lastName;

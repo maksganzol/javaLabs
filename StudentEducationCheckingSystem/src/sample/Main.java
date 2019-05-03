@@ -22,8 +22,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-        DataBaseHandler dbH = new DataBaseHandler();
-        dbH.createGroupTable("AS-181");
         launch(args);
     }
 }

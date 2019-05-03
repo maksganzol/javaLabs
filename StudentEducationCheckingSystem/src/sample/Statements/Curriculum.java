@@ -2,6 +2,7 @@ package sample.Statements;
 
 import sample.DataBases.Const;
 import sample.DataBases.DataBaseHandler;
+import sample.Persons.Student;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,20 +13,23 @@ import java.util.ArrayList;
  * Список диисциплин. В каждой дисциплине указано, в каких группах она присутствует
  */
 public class Curriculum {
+    private ArrayList<String> groups;
     private DataBaseHandler dbHandler;
-    private ArrayList<Subject> subjects;
+    private static ArrayList<Subject> subjects;
 
     public Curriculum(){
 
         dbHandler = new DataBaseHandler();
         ResultSet resSet = dbHandler.getCurriculum();
         int columnNum = 3;
+        groups = new ArrayList<>();
+
         try {
             parseFromDB(resSet);
         }catch(SQLException ex){
             ex.printStackTrace();
         }
-
+        createOrUpdateGroupTables();
     }
 
     /**
@@ -39,6 +43,8 @@ public class Curriculum {
         int columnNum = 3; //columnNum - номер столбца, который представляет данный предмет
         for(int i = 0; i < resSet.getMetaData().getColumnCount() - 2; i++) { //Цикл выполняется столькот раз, сколько предметов в таблице
             while (resSet.next()) {
+                if(!groups.contains(resSet.getString(Const.CUR_GROUP)))
+                    groups.add(resSet.getString(Const.CUR_GROUP));
                 if (resSet.getBoolean(columnNum)) //Если данный предмет есть у данной группы
                     groupSet.add(resSet.getString(Const.CUR_GROUP)); //Добавляем в список групп
                 }
@@ -103,9 +109,10 @@ public class Curriculum {
 
     public void addNewGroup(String group){
         dbHandler.addGroup(group);
+        groups.add(group);
     }
 
-    public ArrayList<String> getSubjectsForGroup(String group){
+    public static ArrayList<String> getSubjectsForGroup(String group){
         ArrayList<String> subjectsList = new ArrayList<>();
         for(Subject s: subjects)
             for(String gr: s.groups)
@@ -115,5 +122,15 @@ public class Curriculum {
                 }
 
         return subjectsList;
+    }
+
+    public ArrayList<String> getGroupList(){
+        return groups;
+    }
+
+    public void createOrUpdateGroupTables(){
+         ArrayList<String> groupList = getGroupList();
+         for(String gr: groupList)
+             dbHandler.createGroupTable(gr);
     }
 }
