@@ -1,5 +1,6 @@
 package sample.Persons;
 
+import sample.DataBases.DataBaseHandler;
 import sample.Output.ReportHandler;
 import sample.Statements.*;
 
@@ -8,16 +9,24 @@ import java.util.ArrayList;
 public class Secretary extends User{
 
     private Statement statement;
+    private DataBaseHandler dbHandler;
+    private Curriculum curriculum;
 
     public Secretary(String login, String password, String firstname, String lastName) {
         super(login, password, firstname, lastName);
-        statement = new Statement();
         status = "secretary";
+        dbHandler = new DataBaseHandler();
+        curriculum = new Curriculum();
+        statement = new Statement();
     }
 
     public Secretary(){
-        statement = new Statement();
+
         status = "secretary";
+        dbHandler = new DataBaseHandler();
+        curriculum = new Curriculum();
+        statement = new Statement();
+
     }
     @Override
     public String getStatus() {
@@ -40,11 +49,15 @@ public class Secretary extends User{
     }
 
     public void setMarkByGroupAndLastName(String group, String lastName, String subject, int mark){
-        for(Student st: statement.getWholeMarksList())
-            if(st.getLastName().equals(lastName)&&st.getGroup().equals(group)) {
+        for(Student st: getStatementForGroup(group))
+            if(st.getLastName().equals(lastName)) {
                 st.setMark(subject, mark);
+                dbHandler.updateMarkInGroupTable(st);
                 break;
             }
+
+
+
     }
 
     public void makeStatementForGroup(String group, String fileName){

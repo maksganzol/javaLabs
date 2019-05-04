@@ -182,6 +182,23 @@ public class DataBaseHandler extends Configs{
         return resSet;
     }
 
+    public ResultSet getGroup(String group){
+        ResultSet resSet = null;
+        String select = "SELECT * FROM " + group.toLowerCase().replaceAll("-", "");
+
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(select);
+            resSet = prSt.executeQuery();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return resSet;
+    }
+
     public ResultSet getCurriculum(){
         ResultSet resSet = null;
         String select = "SELECT * FROM " + Const.CUR_TABLE;
@@ -251,4 +268,26 @@ public class DataBaseHandler extends Configs{
         return false;
     }
 
+    public void updateMarkInGroupTable(Student st) {
+
+        int countSub = 0;
+        String update = "UPDATE " + st.getGroup().toLowerCase().replaceAll("-", "") + " SET ";
+        for(String sub: new Curriculum().getSubjectsForGroup(st.getGroup())) {
+            if(Curriculum.getSubjectsForGroup(st.getGroup()).indexOf(sub) > 0)
+                update += ",";
+            update += sub + "=" + st.getSubjectsCard().get(sub) + " ";
+        }
+        update += " WHERE " + Const.GROUP_NAME + "=?";
+
+        PreparedStatement prSt = null;
+        try {
+            prSt = getDbConnection().prepareStatement(update);
+            prSt.setString(1,  st.getFirstName() + " " + st.getLastName());
+            prSt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }

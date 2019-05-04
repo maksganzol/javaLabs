@@ -21,7 +21,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-
+        new Secretary().setMarkByGroupAndLastName("AS-181", "Dzekunova", "math", 30);
         launch(args);
     }
 }

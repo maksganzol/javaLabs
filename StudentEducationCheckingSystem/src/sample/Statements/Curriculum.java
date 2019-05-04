@@ -15,12 +15,13 @@ import java.util.ArrayList;
 public class Curriculum {
     private ArrayList<String> groups;
     private DataBaseHandler dbHandler;
-    private static ArrayList<Subject> subjects;
+    private ResultSet resSet;
+    private static ArrayList<Subject> subjects = new ArrayList<>();
 
     public Curriculum(){
 
         dbHandler = new DataBaseHandler();
-        ResultSet resSet = dbHandler.getCurriculum();
+        resSet = dbHandler.getCurriculum();
         int columnNum = 3;
         groups = new ArrayList<>();
 
@@ -33,12 +34,11 @@ public class Curriculum {
     }
 
     /**
-     * Это метод находит группы, а которых преподаеcя каждый предмет из списка и записывает их в список групп этого предмета
+     * Это метод находит группы, а которых преподаетcя каждый предмет из списка и записывает их в список групп этого предмета
      * @param resSet
      */
 
     public void parseFromDB(ResultSet resSet) throws SQLException {
-        subjects = new ArrayList<>();
         ArrayList<String> groupSet = new ArrayList<>();
         int columnNum = 3; //columnNum - номер столбца, который представляет данный предмет
         for(int i = 0; i < resSet.getMetaData().getColumnCount() - 2; i++) { //Цикл выполняется столькот раз, сколько предметов в таблице
@@ -48,7 +48,9 @@ public class Curriculum {
                 if (resSet.getBoolean(columnNum)) //Если данный предмет есть у данной группы
                     groupSet.add(resSet.getString(Const.CUR_GROUP)); //Добавляем в список групп
                 }
-            subjects.add(new Subject(resSet.getMetaData().getColumnName(columnNum), groupSet)); //добавляем предмет
+            String tempSubName = resSet.getMetaData().getColumnName(columnNum);
+            if(isUnicSubName(tempSubName))
+                subjects.add(new Subject(tempSubName, groupSet)); //добавляем предмет
             groupSet = new ArrayList<>(); //Обнуляем список групп
             resSet.beforeFirst (); //Перемещает указатель ResultSet в начало
             columnNum++; //Увеличиваем номер столбца с предметом
@@ -80,6 +82,8 @@ public class Curriculum {
                     return true;
             return false;
         }
+
+
     }
 
     public String toString() {
@@ -97,6 +101,7 @@ public class Curriculum {
             if(subject.equals(s.name)){
                 s.addGroup(group);
                 dbHandler.addSubjectToGroup(subject, group);
+
             }
         }
         ResultSet resSet = dbHandler.getCurriculum();
@@ -113,6 +118,7 @@ public class Curriculum {
     }
 
     public static ArrayList<String> getSubjectsForGroup(String group){
+        /////////////////////
         ArrayList<String> subjectsList = new ArrayList<>();
         for(Subject s: subjects)
             for(String gr: s.groups)
@@ -132,5 +138,13 @@ public class Curriculum {
          ArrayList<String> groupList = getGroupList();
          for(String gr: groupList)
              dbHandler.createGroupTable(gr);
+    }
+
+    private boolean isUnicSubName(String name){
+        for(Subject s: subjects)
+            if(s.name.equals(name))
+                return false;
+
+        return true;
     }
 }
