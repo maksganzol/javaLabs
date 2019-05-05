@@ -42,6 +42,14 @@ public class SecretaryPageController {
                 e.printStackTrace();
             }
         });
+
+        setmarkbutton.setOnAction(event->{
+            try {
+                showSetMarkStage(sec);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public Stage showAddStudentStage(Secretary sec) throws IOException {
@@ -53,5 +61,16 @@ public class SecretaryPageController {
         stage.showAndWait();
         return stage;
     }
+
+    public Stage showSetMarkStage(Secretary sec) throws IOException {
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("SetMarkPage.fxml"));
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene((Pane)loader.load()));
+        SetMarkPageController controller = (SetMarkPageController)loader.getController();
+        controller.initData(sec);
+        stage.showAndWait();
+        return stage;
+    }
+
 
 }

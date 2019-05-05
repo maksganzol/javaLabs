@@ -19,9 +19,8 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-
+//TODO доавить в отчет куратору оценки
     public static void main(String[] args) {
-        new Secretary().setMarkByGroupAndLastName("AS-181", "Dzekunova", "math", 30);
         launch(args);
     }
 }

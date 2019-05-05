@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sample.GUI.SetMarkPageController">
+  <children>
+    <Button id="loginbutton" fx:id="applybutton" layoutX="365.0" layoutY="200.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="128.0" text="Apply" />
+    <TextField id="loginfield" fx:id="grroupfield" layoutX="75.0" layoutY="118.0" prefHeight="25.0" prefWidth="200.0" promptText="Group" text="" />
+    <Label fx:id="welcomelabel" layoutX="75.0" layoutY="42.0" prefHeight="42.0" prefWidth="176.0" text="Set marks">
+      <font>
+        <Font size="30.0" />
+      </font>
+    </Label>
+    <TextField id="loginfield" fx:id="surnamefield" layoutX="293.0" layoutY="118.0" prefHeight="25.0" prefWidth="200.0" promptText="Student surname" text="" />
+    <TextField id="loginfield" fx:id="subjectfield" layoutX="75.0" layoutY="154.0" prefHeight="25.0" prefWidth="200.0" promptText="Subject" text="" />
+    <TextField id="loginfield" fx:id="markfield" layoutX="293.0" layoutY="154.0" prefHeight="25.0" prefWidth="200.0" promptText="Mark (integer)" text="" />
+  </children>
+</AnchorPane>
