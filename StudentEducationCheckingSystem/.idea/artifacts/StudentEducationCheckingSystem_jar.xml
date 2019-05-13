@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="StudentEducationCheckingSystem:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/StudentEducationCheckingSystem_jar</output-path>
+    <root id="archive" name="StudentEducationCheckingSystem.jar">
+      <element id="module-output" name="StudentEducationCheckingSystem" />
+      <element id="extracted-dir" path="C:/JDBC/mysql-connector-java-5.1.47/mysql-connector-java-5.1.47.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
